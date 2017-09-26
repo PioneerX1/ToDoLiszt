@@ -1,5 +1,6 @@
 package com.todo.liszt.todoliszt.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +47,8 @@ public class AddCategoryActivity extends AppCompatActivity implements View.OnCli
 
             Category newCategory = new Category(name, description);
             saveLocationToFirebase(newCategory);
+            Intent intent = new Intent(AddCategoryActivity.this, MainActivity.class);
+            startActivity(intent);
 
         }
     }

@@ -9,21 +9,26 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.todo.liszt.todoliszt.R;
+import com.todo.liszt.todoliszt.models.Category;
+
+import java.util.ArrayList;
 
 public class CategoryListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private String[] mCategoryNames;
+    private ArrayList<Category> mCategories = new ArrayList<>();
 
-    public CategoryListAdapter(Context context, String[] categoryNames) {
+    public CategoryListAdapter(Context context, ArrayList<Category> categories) {
         this.mContext = context;
-        this.mCategoryNames = categoryNames;
+        this.mCategories = categories;
     }
+
+
 
 
     @Override
     public int getCount() {
-        return mCategoryNames.length;
+        return mCategories.size();
     }
 
     @Override
@@ -46,8 +51,8 @@ public class CategoryListAdapter extends BaseAdapter {
         if (convertView == null) {
             gridView = inflater.inflate(R.layout.category_list_grid_item, null);
             TextView categoryName = (TextView) gridView
-                    .findViewById(R.id.category_grid_item);
-            categoryName.setText(mCategoryNames[position]);
+                    .findViewById(R.id.categoryGridItem);
+            //categoryName.setText(mCategories[position].getName());
         } else {
             gridView = (View) convertView;
         }
