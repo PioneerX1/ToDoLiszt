@@ -6,4 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.todo.liszt.todoliszt.ui.AddCategoryActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add A Category"
+        android:textAllCaps="false"
+        android:textColor="@color/primary_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="16dp" />
+
 </android.support.constraint.ConstraintLayout>
