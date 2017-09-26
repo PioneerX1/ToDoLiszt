@@ -36,9 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DatabaseReference mCategoryReference;
     private ValueEventListener mCategoryReferenceListener;
-
-    private CategoryListAdapter mAdapter;
     public ArrayList<Category> mCategories = new ArrayList<>();
+    private CategoryListAdapter mAdapter = new CategoryListAdapter(MainActivity.this, mCategories);
 
     String[] categoryNames = new String[] {"Wok", "Kvlt", "Handbeezies", "NigNogs", "Bill Withers, Sr.", "Africa Night"};
 
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        //mCategoryGridView.setAdapter(new CategoryListAdapter(this, mCategoryReference));
+        mCategoryGridView.setAdapter(mAdapter);
 
         mNewCategoryButton.setOnClickListener(this);
     }
