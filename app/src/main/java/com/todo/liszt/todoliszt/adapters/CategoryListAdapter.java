@@ -47,7 +47,7 @@ public class CategoryListAdapter extends BaseAdapter {
             gridView = inflater.inflate(R.layout.category_list_grid_item, null);
             TextView categoryName = (TextView) gridView
                     .findViewById(R.id.category_grid_item);
-            categoryName.setText("I have a family");
+            categoryName.setText(mCategoryNames[position]);
         } else {
             gridView = (View) convertView;
         }

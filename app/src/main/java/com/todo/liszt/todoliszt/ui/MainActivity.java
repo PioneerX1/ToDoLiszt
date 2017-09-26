@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.categoryGridView) GridView mCategoryGridView;
     @Bind(R.id.newCategoryButton) Button mNewCategoryButton;
 
-    String[] categoryNames = new String[] {"Wok", "Kvlt", "Handbeezies", "NigNogs"};
+    String[] categoryNames = new String[] {"Wok", "Kvlt", "Handbeezies", "NigNogs", "Bill Withers, Sr.", "Africa Night"};
 
 
     @Override
