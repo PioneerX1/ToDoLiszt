@@ -7,9 +7,12 @@ import android.util.Log;
 import com.todo.liszt.todoliszt.R;
 import com.todo.liszt.todoliszt.models.Category;
 
+import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+
+import static android.R.attr.category;
 
 public class CategoryDetailActivity extends AppCompatActivity {
     Category mCategory;
@@ -22,7 +25,11 @@ public class CategoryDetailActivity extends AppCompatActivity {
         mCategory = Parcels.unwrap(getIntent().getParcelableExtra("category"));
 
 
-        Log.d("CATEGORY", mCategory.getName());
+        CategoryDetailFragment fragment = new CategoryDetailFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("category", Parcels.wrap(mCategory));
+        fragment.setArguments(bundle);
 
 
     }
