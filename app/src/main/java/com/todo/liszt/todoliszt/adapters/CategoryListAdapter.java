@@ -1,16 +1,35 @@
 package com.todo.liszt.todoliszt.adapters;
 
-
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MotionEventCompat;
+import android.view.MotionEvent;
+import android.view.View;
+
+
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.todo.liszt.todoliszt.R;
 import com.todo.liszt.todoliszt.models.Category;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import java.util.ArrayList;
 
@@ -51,9 +70,9 @@ public class CategoryListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             gridView = inflater.inflate(R.layout.category_list_grid_item, null);
-            TextView categoryName = (TextView) gridView.findViewById(R.id.categoryGridItem);
+            TextView categoryName = gridView.findViewById(R.id.categoryGridItem);
             categoryName.setText(mCategories.get(position).getName());
-            Log.d("SUCCESS!!!!", "BUT NOT REALLY");
+            Log.d("DOGHAT", "BUT NOT REALLY");
         } else {
             gridView = (View) convertView;
             Log.d("DOGHAT", "EMPTY!!!!!!!!!!!");

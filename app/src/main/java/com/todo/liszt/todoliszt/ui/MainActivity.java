@@ -3,6 +3,7 @@ package com.todo.liszt.todoliszt.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.todo.liszt.todoliszt.Constants;
 import com.todo.liszt.todoliszt.R;
 import com.todo.liszt.todoliszt.adapters.CategoryListAdapter;
+import com.todo.liszt.todoliszt.adapters.FirebaseCategoryGridAdapter;
 import com.todo.liszt.todoliszt.adapters.FirebaseCategoryViewHolder;
 import com.todo.liszt.todoliszt.models.Category;
 
@@ -30,52 +32,49 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Bind(R.id.categoryGridView) GridView mCategoryGridView;
     @Bind(R.id.newCategoryButton) Button mNewCategoryButton;
     @Bind(R.id.categoryRecyclerView) RecyclerView mCategoryRecyclerView;
 
     private DatabaseReference mCategoryReference;
     private ValueEventListener mCategoryReferenceListener;
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
+
     public ArrayList<Category> mCategories = new ArrayList<>();
     private CategoryListAdapter mAdapter = new CategoryListAdapter(MainActivity.this, mCategories);
 
-    String[] categoryNames = new String[] {"Wok", "Kvlt", "Handbeezies", "NigNogs", "Bill Withers, Sr.", "Africa Night"};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        mCategoryReference = FirebaseDatabase
-                .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_CATEGORY);
-
-        mCategoryReferenceListener = mCategoryReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()) {
-                    String name = (String) categorySnapshot.child("name").getValue();
-                    String description = (String) categorySnapshot.child("description").getValue();
-                    Category cat = new Category(name, description);
-                    mCategories.add(cat);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mCategoryGridView.setAdapter(mAdapter);
+        mCategoryReference = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_CATEGORY);
 
+        setUpFirebaseAdapter();
         mNewCategoryButton.setOnClickListener(this);
+    }
+
+    private void setUpFirebaseAdapter() {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<Category, FirebaseCategoryViewHolder>(Category.class, R.layout.category_list_grid_item, FirebaseCategoryViewHolder.class, mCategoryReference) {
+            @Override
+            protected void populateViewHolder(FirebaseCategoryViewHolder viewHolder, Category model, int position) {
+                viewHolder.bindCategory(model);
+            }
+        };
+        mCategoryRecyclerView.setHasFixedSize(false);
+        mCategoryRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, true));
+        mCategoryRecyclerView.setAdapter(mFirebaseAdapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFirebaseAdapter.cleanup();
     }
 
 
