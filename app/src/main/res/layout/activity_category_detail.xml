@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.todo.liszt.todoliszt.ui.CategoryDetailActivity">
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentMainActivity"
+        android:name="com.todo.liszt.todoliszt.ui.CategoryDetailFragment"
+        tools:layout="@layout/fragment_main_activity"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp" />
+
+
 </android.support.constraint.ConstraintLayout>
