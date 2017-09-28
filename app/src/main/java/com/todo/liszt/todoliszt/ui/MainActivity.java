@@ -30,17 +30,17 @@ import java.util.Arrays;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.newCategoryButton) Button mNewCategoryButton;
-    @Bind(R.id.categoryRecyclerView) RecyclerView mCategoryRecyclerView;
-
-    private DatabaseReference mCategoryReference;
-    private ValueEventListener mCategoryReferenceListener;
-    private FirebaseRecyclerAdapter mFirebaseAdapter;
-
-    public ArrayList<Category> mCategories = new ArrayList<>();
-    private CategoryListAdapter mAdapter = new CategoryListAdapter(MainActivity.this, mCategories);
+//    @Bind(R.id.newCategoryButton) Button mNewCategoryButton;
+//    @Bind(R.id.categoryRecyclerView) RecyclerView mCategoryRecyclerView;
+//
+//    private DatabaseReference mCategoryReference;
+//    private ValueEventListener mCategoryReferenceListener;
+//    private FirebaseRecyclerAdapter mFirebaseAdapter;
+//
+//    public ArrayList<Category> mCategories = new ArrayList<>();
+//    private CategoryListAdapter mAdapter = new CategoryListAdapter(MainActivity.this, mCategories);
 
 
 
@@ -49,40 +49,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
 
-        mCategoryReference = FirebaseDatabase
-                .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_CATEGORY);
-
-        setUpFirebaseAdapter();
-        mNewCategoryButton.setOnClickListener(this);
+//        mCategoryReference = FirebaseDatabase
+//                .getInstance()
+//                .getReference(Constants.FIREBASE_CHILD_CATEGORY);
+//
+//        mNewCategoryButton.setOnClickListener(this);
     }
 
-    private void setUpFirebaseAdapter() {
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Category, FirebaseCategoryViewHolder>(Category.class, R.layout.category_list_grid_item, FirebaseCategoryViewHolder.class, mCategoryReference) {
-            @Override
-            protected void populateViewHolder(FirebaseCategoryViewHolder viewHolder, Category model, int position) {
-                viewHolder.bindCategory(model);
-            }
-        };
-        mCategoryRecyclerView.setHasFixedSize(false);
-        mCategoryRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, true));
-        mCategoryRecyclerView.setAdapter(mFirebaseAdapter);
-    }
+//    private void setUpFirebaseAdapter() {
+//        mFirebaseAdapter = new FirebaseRecyclerAdapter<Category, FirebaseCategoryViewHolder>(Category.class, R.layout.category_list_grid_item, FirebaseCategoryViewHolder.class, mCategoryReference) {
+//            @Override
+//            protected void populateViewHolder(FirebaseCategoryViewHolder viewHolder, Category model, int position) {
+//                viewHolder.bindCategory(model);
+//            }
+//        };
+//        mCategoryRecyclerView.setHasFixedSize(false);
+//        mCategoryRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, true));
+//        mCategoryRecyclerView.setAdapter(mFirebaseAdapter);
+//    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mFirebaseAdapter.cleanup();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        mFirebaseAdapter.cleanup();
+//    }
 
 
-    @Override
-    public void onClick(View view) {
-        if (view == mNewCategoryButton) {
-            Intent intent = new Intent(MainActivity.this, AddCategoryActivity.class);
-            startActivity(intent);
-        }
-    }
+//    @Override
+//    public void onClick(View view) {
+//        if (view == mNewCategoryButton) {
+//            Intent intent = new Intent(MainActivity.this, AddCategoryActivity.class);
+//            startActivity(intent);
+//        }
+//    }
 }

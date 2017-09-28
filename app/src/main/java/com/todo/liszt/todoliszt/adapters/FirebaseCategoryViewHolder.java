@@ -28,7 +28,11 @@ public class FirebaseCategoryViewHolder extends RecyclerView.ViewHolder implemen
     @Override
     public void onClick(View view) {
 
-        // more code later
+        if (view == itemView) {
+            // retrieve object in item view
+            // pass object into intent
+            // start intent
+        }
     }
 
 }
