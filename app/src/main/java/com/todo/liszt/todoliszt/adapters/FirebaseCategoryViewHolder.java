@@ -1,11 +1,25 @@
 package com.todo.liszt.todoliszt.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.todo.liszt.todoliszt.Constants;
 import com.todo.liszt.todoliszt.R;
 import com.todo.liszt.todoliszt.models.Category;
+import com.todo.liszt.todoliszt.ui.CategoryDetailActivity;
+
+import org.parceler.Parcels;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class FirebaseCategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -29,9 +43,30 @@ public class FirebaseCategoryViewHolder extends RecyclerView.ViewHolder implemen
     public void onClick(View view) {
 
         if (view == itemView) {
-            // retrieve object in item view
-            // pass object into intent
-            // start intent
+            final ArrayList<Category> categories = new ArrayList<>();
+            DatabaseReference ref = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_CATEGORY);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        categories.add(snapshot.getValue(Category.class));
+                    }
+
+                    int itemPosition = getLayoutPosition();
+                    Intent intent = new Intent(mContext, CategoryDetailActivity.class);
+                    intent.putExtra("position", itemPosition + "");
+                    intent.putExtra("categories", Parcels.wrap(categories));
+                    mContext.startActivity(intent);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
     }
 
